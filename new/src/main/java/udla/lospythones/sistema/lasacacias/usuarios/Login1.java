@@ -42,8 +42,10 @@ public class Login1 extends javax.swing.JFrame {
         id = new javax.swing.JTextField();
         aviso = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -55,7 +57,7 @@ public class Login1 extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Contraseña:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Rol en el criadero:");
@@ -63,11 +65,11 @@ public class Login1 extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("User ID:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, -1));
 
         psw.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         psw.setToolTipText("");
-        jPanel1.add(psw, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 340, 30));
+        jPanel1.add(psw, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 340, 30));
 
         id.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         id.setToolTipText("");
@@ -76,7 +78,7 @@ public class Login1 extends javax.swing.JFrame {
                 idActionPerformed(evt);
             }
         });
-        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 340, 30));
+        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 340, 30));
 
         aviso.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         aviso.setForeground(new java.awt.Color(255, 0, 0));
@@ -85,6 +87,15 @@ public class Login1 extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoacacias.jpg"))); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton1.setText("Ingresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 503, 110, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,6 +123,17 @@ public class Login1 extends javax.swing.JFrame {
     private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_idActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try { 
+            Inicio start = new Inicio();
+            start.paginadeInicio(id.getText(), psw.getText(), (String)rol.getSelectedItem());
+        } catch (SQLException ex) {
+            Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,6 +173,7 @@ public class Login1 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel aviso;
     private javax.swing.JTextField id;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

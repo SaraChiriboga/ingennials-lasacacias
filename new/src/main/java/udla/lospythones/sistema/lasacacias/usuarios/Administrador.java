@@ -35,11 +35,6 @@ public class Administrador extends Usuario {
     // Metodo que presenta las opciones disponibles para el administrador.
     @Override
     public int opcionesUsuario() throws IOException, SQLException {
-        //Indica que estas en modo administrador
-        System.out.println("+-------------------------------------------------+");
-        System.out.println("| Se encuentra en la consola de **ADMINISTRADOR** |");
-        System.out.println("+-------------------------------------------------+");
-
         // Opciones que se muestran al administrador.
         String[] object={"", "Creación de usuario","Eliminación de usuario", "Mostrar usuarios", "Agregar Caballo","Editar información caballo", "Eliminar Caballo","Buscar Caballo", "Mostrar caballos","Agregar/Actualizar historial médico", "Eliminar todos los historiales de un caballo", "Buscar historial", "Mostrar historiales", "Agregar un campo", "Eliminar campo", "Mostrar campos", "Salir"};
         Object option= null;
@@ -111,22 +106,19 @@ public class Administrador extends Usuario {
                 break;
             case "Editar información caballo":
                 try{
-                    System.out.printf("ID del caballo: ");
-                    int edit = Integer.parseInt(sc.readLine());
-                    caballito.editarCaballo(edit);
+                    caballito.editarCaballo();
                 }catch (NumberFormatException e){System.out.println("Es necesario que coloque el id del caballo...");}
                 break;
             case "Eliminar Caballo":
                 try {
-                    System.out.printf("ID del caballo: ");
-                    int id = Integer.parseInt(sc.readLine());
+                    int id = Integer.parseInt(JOptionPane.showInputDialog(null, "ID del caballo:"));
                     caballito.eliminarCaballo(id);
                 }catch (NumberFormatException e){
                     System.out.println("Es necesario que coloque el id del caballo...");
                 }
                 break;
             case "Buscar Caballo":
-                caballos.mostrarResultadoBusqueda();
+                //caballos.mostrarResultadoBusqueda();
                 break;
             case "Mostrar caballos":
                 caballito.impresionCaballos();
@@ -208,7 +200,7 @@ public class Administrador extends Usuario {
         try{
 
             // Solicita el ID del usuario a eliminar.
-            int id = Integer.parseInt(JOptionPane.showInputDialog(null, "ID del usuario a eliminar del registro"));
+            String id = JOptionPane.showInputDialog(null, "ID del usuario a eliminar del registro");
             Inicio user = new Inicio();
             String nombre = user.verificacionUserSinPs(acacias, id, tipoUSer); // Verifica si el usuario existe.
 

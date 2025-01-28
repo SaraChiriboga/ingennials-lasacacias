@@ -8,7 +8,7 @@ import udla.lospythones.sistema.lasacacias.usuarios.Login1;
 
 public class Main {
     public static void main(String[] args) throws IOException, SQLException {
-      Inicio start = new Inicio();
-      start.paginadeInicio();
+      Login1 lasacacias = new Login1();
+      lasacacias.setVisible(true);
     }
 }

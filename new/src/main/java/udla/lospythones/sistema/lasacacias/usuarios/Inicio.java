@@ -16,19 +16,11 @@ public class Inicio {
     public Inicio() throws SQLException {
     }
 
-    public void paginadeInicio() throws IOException, SQLException {
-        login.setVisible(true);
+    public void paginadeInicio(String id, String pass, String rol) throws IOException, SQLException {
         ImageIcon logoAcacias = new ImageIcon("C:\\Users\\saril\\Desktop\\OneDrive - Universidad de Las Américas\\3\\PROGRAMACION II\\Proyecto Final\\logoacacias_S.jpg");
-        /*String[] object={"Administrador","Veterinario","Trabajador"};//Opciones de los roles que intervienen en el sistema
+        
         int ans = 0;
-        ans=JOptionPane.showOptionDialog(null, "Escoger rol...", "Seleccion del rol",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, logoAcacias, object, null)+1;//Se suma uno debido a que este retorna un valor basado en cero y para el switch se necesita desde 1
-        if (ans==0){
-            JOptionPane.showMessageDialog(null, "Por favor, escoja una opción");
-            paginadeInicio();//Bucle para que el usuario deba colocar que rol ocupa al iniciar sesión
-        }*/
-        int ans = 0;
-        String rol = login.getRol();
+        String roles = rol;
         switch (rol) {
             case "Administrador" -> ans = 1;
             case "Veterinario" -> ans = 2;
@@ -36,26 +28,25 @@ public class Inicio {
             default -> {
             }
         }
-       
-       
 
         Usuario usuario = null;//Uso de la clase abstracta
         switch (ans){//El switch nos permitirá ingresar a la base de datos correcta de acuerdo al rol
             case 1:
-                inicioDeSesion("administrador");
+                inicioDeSesion("administrador", id, pass);
                 usuario = new Administrador();
                 break;
             case 2:
-                inicioDeSesion("veterinaria");
+                inicioDeSesion("veterinaria", id, pass);
                 usuario = new Veterinario();
                 break;
             case 3:
-                inicioDeSesion("trabajador");
+                inicioDeSesion("trabajador", id, pass);
                 usuario = new Trabajador();
                 break;
         }
         int ans1=0;
         while (ans1==0){
+        login.setVisible(false);
         ans1 = usuario.opcionesUsuario();//Anteriormente se instanció de acuerdo a la clase escogida, se llama al metodo que hereda de la clase abstracta Usuario
             if (ans1==1){
                 break;
@@ -66,19 +57,17 @@ public class Inicio {
         JOptionPane.showMessageDialog(null, "Gracias por usar nuestro sistema!", "", JOptionPane.INFORMATION_MESSAGE, logoAcacias);
     }
 
-    private void inicioDeSesion(String tipoUser){
-        BaseDeDatos db = new BaseDeDatos();
+    private void inicioDeSesion(String tipoUser, String user, String cont){
+        BaseDeDatos db = new BaseDeDatos(); //se inicia una conexión con la base de datos
         Connection acacias = db.connectToDataBase();
-        boolean ingreso = true;
-        while (ingreso) {
-            String us = login.getId();
-            String ps = login.getPsw().getText();
-            String nombreUSer = verificacionUser(acacias, us, ps, tipoUser);
-            
+        boolean ingreso=true;
+        while (ingreso) {//Se permanecerá en el bucle hasta que se ingrese datos que se encuentren en la base de datos
+            String nombreUSer = verificacionUser(acacias, user, cont, tipoUser);
             if (nombreUSer != null) {
-                login.setVisible(false);
                 JOptionPane.showMessageDialog(null, "Bienvenid@ " + nombreUSer);
-                ingreso = false;
+                ingreso=false;
+            } else{
+                login.avisoError("Datos incorrecto!");
             }
         }
     }
