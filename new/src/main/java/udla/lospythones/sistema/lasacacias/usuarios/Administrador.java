@@ -61,16 +61,16 @@ public class Administrador extends Usuario {
                 }
                 switch (ans){
                     case 1:
-                        Administrador administrador2 = new Administrador();
-                        administrador2.nuevoUsuario();
+                        AgregarAdmin administrador2 = new AgregarAdmin();
+                        administrador2.setVisible(true);
                         break;
                     case 2:
-                        Veterinario veterinario = new Veterinario();
-                        veterinario.nuevoUsuario();
+                        AgregarVet veterinario = new AgregarVet();
+                        veterinario.setVisible(true);
                         break;
                     case 3:
-                        Trabajador trabajador = new Trabajador();
-                        trabajador.nuevoUsuario();
+                        AgregarTrabajador trabajador = new AgregarTrabajador();
+                        trabajador.setVisible(true);
                         break;
                 }
                 break;
@@ -118,18 +118,18 @@ public class Administrador extends Usuario {
                 }
                 break;
             case "Buscar Caballo":
-                //caballos.mostrarResultadoBusqueda();
+                caballos.resultadoBusqueda();
                 break;
             case "Mostrar caballos":
                 caballito.impresionCaballos();
                 break;
             case "Agregar/Actualizar historial médico":
-                historiales.actualizarRegistro();
+                AgregarHistorial hist = new AgregarHistorial();
+                hist.setVisible(true);
                 break;
             case "Eliminar todos los historiales de un caballo":
                 try{
-                    System.out.printf("ID del caballo: ");
-                    int deletehist = Integer.parseInt(sc.readLine());
+                    int deletehist = Integer.parseInt(JOptionPane.showInputDialog(null, "ID del caballo:"));
                     historiales.eliminarHistorial(deletehist);
                 }catch (NumberFormatException e){
                     System.out.println("Es necesario que coloque el id del caballo...");}
@@ -155,46 +155,6 @@ public class Administrador extends Usuario {
         return 0; // Retorna por defecto si no se selecciona "Salir".
     }
 
-    // Metodo para crear un nuevo usuario administrador.
-    @Override
-    public void nuevoUsuario() throws IOException {
-
-        BufferedReader sc = new BufferedReader(new java.io.InputStreamReader(System.in));
-        System.out.println("======================================");
-        try {
-            // Solicita el ID del usuario y lo valida, debido a que estos datos son posibles de generar error
-            System.out.print("ID: ");
-            setIdUser(Integer.parseInt(sc.readLine()));
-        }catch (NumberFormatException e){
-            System.out.println("Es ncesario que ingrese el ID del usuario");
-            nuevoUsuario();
-        }
-        System.out.println("Nombre: ");
-        setNombre(sc.readLine());
-        System.out.println("Contraseña: ");
-        setContrasena(sc.readLine());
-        System.out.println("CI: ");
-        setCI(sc.readLine());
-
-        // Inserta los datos del usuario en la base de datos.
-        String datos = "INSERT INTO administrador(idUser, nombre, contrasena, CI) VALUES(?, ?, ?, ?)";
-        try(PreparedStatement insertar = acacias.prepareStatement(datos)){
-
-            insertar.setInt(1, getIdUser());
-            insertar.setString(2, getNombre());
-            insertar.setString(3, getContrasena());
-            insertar.setString(4, getCI());
-
-            insertar.executeUpdate();
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-
-        // Confirma la creación del usuario.
-        System.out.println("Nuevo Usuario creado con exito" + "\n ID: " + getIdUser() + "\n Nombre: " + getNombre()
-        + "\n CI: " + getCI());
-    }
-
     // Metodo para eliminar un usuario de la base de datos.
     public void eliminarUsuario(String tipoUSer) throws SQLException {
         try{
@@ -217,7 +177,7 @@ public class Administrador extends Usuario {
                 // Elimina el usuario de la tabla correspondiente.
                 String instruccion = "DELETE FROM " + tipoUSer + " WHERE idUser = '"+ id +"'";
                 try(PreparedStatement borrar = acacias.prepareStatement(instruccion)) {
-                    System.out.println("Usuario eliminado exitosamente!");
+                    JOptionPane.showMessageDialog(null, "Usuario eliminado exitosamente!");
                     borrar.executeUpdate();
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
@@ -297,29 +257,11 @@ public class Administrador extends Usuario {
     //metodo para mostrar usuarios, ESTA OPCION ES UNICA PARA EL ADMIN
      public void mostrarUsers() throws SQLException {
         TablaUsers usuarios = new TablaUsers();
-        System.out.println("Abriendo registros...");
-
-        // Usar un bloqueo para esperar a que la ventana sea cerrada
-        final Object lock = new Object();
-
-        usuarios.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent e) {
-                synchronized (lock) {
-                    lock.notify(); // Notificar que la ventana fue cerrada
-                }
-            }
-        });
-
         usuarios.setVisible(true);
+    }
 
-        // Bloquear el hilo principal hasta que se cierre la ventana
-        synchronized (lock) {
-            try {
-                lock.wait();
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-        }
-     }
+    @Override
+    public void nuevoUsuario() throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

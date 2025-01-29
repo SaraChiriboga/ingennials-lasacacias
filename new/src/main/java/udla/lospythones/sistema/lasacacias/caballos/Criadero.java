@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 public class Criadero {
     //atributos
@@ -36,51 +37,16 @@ public class Criadero {
 
     // metodo para agregar campo
     public void agregarCampo() throws IOException, UniqueValueException, SQLException{
-        boolean i = true;
-        while (i) {
-            System.out.printf("Nombre del campo: ");
-            setNombreCampo(sc.readLine());
-            System.out.printf("Descripción: ");
-            setDescripcion(sc.readLine());
-
-            // asegurarse de que el nombre del campo sea único mediante una excepción
-            try (Statement verificar = acacias.createStatement()) {
-                String similar = "SELECT * FROM criadero WHERE nombre = '" + this.nombreCampo + "'";
-                ResultSet rs = verificar.executeQuery(similar);
-                if (rs.next()) {
-                    throw new UniqueValueException("El nombre de cada campo es único! Por favor, ingrese un valor diferente...");
-                } else {
-                    // ingreso de información a la base de datos
-                    String add = "INSERT INTO criadero (nombre, descripcion) VALUES (?, ?)";
-                    try (PreparedStatement agregar = acacias.prepareStatement(add)) {
-                        agregar.setString(1, getNombreCampo());
-                        agregar.setString(2, getDescripcion());
-                        agregar.executeUpdate();
-                        System.out.println("Campo agregado exitosamente.");
-                    }
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } catch (UniqueValueException un) {
-                System.out.println(un.getMessage());
-            }
-
-            // iteración con boolean
-            System.out.println("Ingresar otro campo? (1.Si - 2.No)");
-            int siono = Integer.parseInt(sc.readLine());
-            if (siono == 2) {
-                i = false;
-            }
-        }
+        AgregarCampo campo = new AgregarCampo();
+        campo.setVisible(true);
     }
 
     //metodo para eliminar campo
     public void eliminarCampo() throws IOException {
-        System.out.printf("Ingrese el nombre del campo: ");
-        String name = sc.readLine();
+        String name = JOptionPane.showInputDialog(null, "Ingrese el nombre del campo: ");
         String instruccion = "DELETE FROM criadero WHERE nombre = '"+name+"'"; //esta solicita que se elimine de la tabla criadero
         try(PreparedStatement borrar = acacias.prepareStatement(instruccion)) {
-            System.out.println("Campo eliminado exitosamente!");
+            JOptionPane.showMessageDialog(null, "Campo eliminado exitosamente!");
             borrar.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -114,29 +80,7 @@ public class Criadero {
     public void mostrarCampos(){
         TablaCriadero tabla = new TablaCriadero();
         System.out.println("Abriendo registro. Corrobore los cambios...");
-        
-        // Usar un bloqueo para esperar a que la ventana sea cerrada
-        final Object lock = new Object();
-
-        tabla.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent e) {
-                synchronized (lock) {
-                    lock.notify(); // Notificar que la ventana fue cerrada
-                }
-            }
-        });
 
         tabla.setVisible(true);
-
-        // Bloquear el hilo principal hasta que se cierre la ventana
-        synchronized (lock) {
-            try {
-                lock.wait();
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-        }
      }
-    }
-
 }

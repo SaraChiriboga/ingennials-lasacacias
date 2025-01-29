@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import udla.lospythones.sistema.lasacacias.caballos.AgregarHistorial;
 
 public class Veterinario extends Usuario {
 
@@ -67,9 +68,6 @@ public class Veterinario extends Usuario {
 
     @Override
     public int opcionesUsuario() throws SQLException, IOException {
-        System.out.println("+-----------------------------------------------+");
-        System.out.println("| Se encuentra en la consola de **VETERINARIO** |");
-        System.out.println("+-----------------------------------------------+");
         // Opciones disponibles para el veterinario
         String[] object={"", "Agregar historial médico","Eliminar todos los historiales de un caballo", "Buscar historial","Mostrar historiales","Mostrar caballos", "Salir"};
         Object option= null;
@@ -82,18 +80,19 @@ public class Veterinario extends Usuario {
         // Switch donde se ejecutará acciones según la opción seleccionada
         switch (option.toString()){
             case "Agregar historial médico":
-                historiales.actualizarRegistro();
+                AgregarHistorial hist = new AgregarHistorial();
+                hist.setVisible(true);
                 break;
             case "Eliminar todos los historiales de un caballo":
                 try{
-                    System.out.printf("ID del caballo: ");
-                    int deletehist = Integer.parseInt(sc.readLine());
+                    int deletehist = Integer.parseInt(JOptionPane.showInputDialog(null, "ID del caballo:"));
                     historiales.eliminarHistorial(deletehist);
                 }catch (NumberFormatException e){
                     System.out.println("Es necesario que coloque el id del caballo...");}
                 break;
             case "Buscar historial":
-                hist.mostrarHistorialEncontrado();
+                TablaMed histmed = new TablaMed();
+                histmed.mostrarHistorialEncontrado();
                 break;
             case "Mostrar historiales":
                 historiales.mostrarHistoriales();
@@ -109,54 +108,7 @@ public class Veterinario extends Usuario {
 
     @Override
     public void nuevoUsuario() throws IOException {
-
-            BaseDeDatos db = new BaseDeDatos(); //se inicia una conexión con la base de datos
-            Connection acacias = db.connectToDataBase();
-
-            //Asignación de los valores ingresados por el usuario
-            BufferedReader sc = new BufferedReader(new java.io.InputStreamReader(System.in));
-            System.out.println("======================================");
-            System.out.println("Ingrese los datos del nuevo usuario...");
-            System.out.println("======================================");
-            try {
-                System.out.print("ID: ");//Ingreso de valores enteros los cuales podrían causar errores
-                setIdUser(Integer.parseInt(sc.readLine()));
-            }catch (NumberFormatException e){
-                System.out.println("Es ncesario que ingrese el ID del usuario");
-                nuevoUsuario();
-            }
-            System.out.println("Nombre: ");
-            setNombre(sc.readLine());
-            System.out.println("Contraseña: ");
-            setContrasena(sc.readLine());
-            System.out.println("CI: ");
-            setCI(sc.readLine());
-            System.out.println("Registro SENECYT: ");
-            setRegistroSenecyt(sc.readLine());
-            System.out.println("Especialización: ");
-            setEspecializacion(sc.readLine());
-            System.out.println("Teléfono: ");
-            setTelefono(Integer.parseInt(sc.readLine()));
-
-            //Ingreso de datos en la base de datos de MYSQL
-            String datos = "INSERT INTO veterinaria(idUser, nombre, contrasena, CI, registroSenecyt, Especializacion, telefono) VALUES(?, ?, ?, ?, ?, ?, ?)";
-            try(PreparedStatement insertar = acacias.prepareStatement(datos)){
-
-                insertar.setInt(1, getIdUser());
-                insertar.setString(2, getNombre());
-                insertar.setString(3, getContrasena());
-                insertar.setString(4, getCI());
-                insertar.setString(5, getRegistroSenecyt());
-                insertar.setString(6, getEspecializacion());
-                insertar.setInt(7, getTelefono());
-
-                insertar.executeUpdate();
-            }catch (SQLException e){
-                throw new RuntimeException(e);
-            }
-
-            //Mensaje de confirmación sobre el ingreso de datos.
-            System.out.println("Nuevo Usuario creado con exito" + "\n ID: " + getIdUser() + "\n Nombre: " + getNombre()
-                    + "\n CI: " + getCI());    }
-        }
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+}
 

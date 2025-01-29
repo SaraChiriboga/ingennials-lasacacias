@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class Caballo {
     //atributos
@@ -176,58 +177,77 @@ public class Caballo {
         }
     }
 
-    //metodo para buscar un caballo en base a su id (modelo de tabla)
-    /*public DefaultTableModel buscarCaballo() throws IOException {
-        int id = Integer.parseInt(JOptionPane.showInputDialog(null, "ID del caballo: "));
-        String sql = "SELECT * FROM caballo WHERE idcaballo ='"+id+"'";
-        //se debe diseñar un nuevo modelo de tabla donde solo se encuentre información del caballo solicitado
-        DefaultTableModel modeloEncontrado = new DefaultTableModel();
-        modeloEncontrado.addColumn("ID"); //se agregan y se definen los nombres de las columnas
-        modeloEncontrado.addColumn("Edad");
-        modeloEncontrado.addColumn("Nombre");
-        modeloEncontrado.addColumn("Raza");
-        modeloEncontrado.addColumn("Sexo");
-        modeloEncontrado.addColumn("Descripción");
-        modeloEncontrado.addColumn("Estado de Salud");
-        modeloEncontrado.addColumn("Estado de Entrenamiento");
-        modeloEncontrado.addColumn("Peso");
-        modeloEncontrado.addColumn("Valor");
-        modeloEncontrado.addColumn("Campo");
-        modeloEncontrado.addColumn("Alimentación");
+    public DefaultTableModel buscarCaballo(){
+    int id = Integer.parseInt(JOptionPane.showInputDialog(null, "ID del caballo: "));
+  
+    DefaultTableModel modeloEncontrado = new DefaultTableModel();
+    modeloEncontrado.addColumn("ID");
+    modeloEncontrado.addColumn("Edad");
+    modeloEncontrado.addColumn("Nombre");
+    modeloEncontrado.addColumn("Raza");
+    modeloEncontrado.addColumn("Sexo");
+    modeloEncontrado.addColumn("Descripción");
+    modeloEncontrado.addColumn("Estado de Salud");
+    modeloEncontrado.addColumn("Estado de Entrenamiento");
+    modeloEncontrado.addColumn("Peso");
+    modeloEncontrado.addColumn("Valor");
+    modeloEncontrado.addColumn("Campo");
+    modeloEncontrado.addColumn("Alimentación");
 
-        try{
-            //se crea una lista que contiene información sobre la tabla
-            Statement st = acacias.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            if(rs.next()){
-                while (rs.next()) { //recorre la lista recuperando detalles y los almacena en un arreglo
-                    Object[] fila = { //un arreglo Object almacena datos de diversos tipos (int, double, String, etc)
-                        rs.getInt("idcaballo"),
-                        rs.getInt("edad"),
-                        rs.getString("nombre"),
-                        rs.getString("raza"),
-                        rs.getString("sexo"),
-                        rs.getString("descripcion"),
-                        rs.getString("estadoSalud"),
-                        rs.getString("estadoEntrenamiento"),
-                        rs.getDouble("peso"),
-                        rs.getDouble("valorComercial"),
-                        rs.getString("campo"),
-                        rs.getDouble("alimentacion")
-                    };
-                    modeloEncontrado.addRow(fila); //una vez que se llena el arreglo con los datos, se agrega una fila y se repite el proceso
-                    System.out.println(rs.getString("nombre"));
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "No se encontró ningun caballo con tal id");
-                buscarCaballo();
+    try{
+        String sql = "SELECT * FROM caballo WHERE idcaballo ='"+ id +"'";
+        Statement st = acacias.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        
+        if(rs.next()){
+            // Aquí se procesa el primer registro
+            Object[] fila = {
+                rs.getInt("idcaballo"),
+                rs.getInt("edad"),
+                rs.getString("nombre"),
+                rs.getString("raza"),
+                rs.getString("sexo"),
+                rs.getString("descripcion"),
+                rs.getString("estadoSalud"),
+                rs.getString("estadoEntrenamiento"),
+                rs.getDouble("peso"),
+                rs.getDouble("valorComercial"),
+                rs.getString("campo"),
+                rs.getDouble("alimentacion")
+            };
+            modeloEncontrado.addRow(fila); 
+            System.out.println(rs.getString("nombre"));
+        
+            // Y ahora procesamos cualquier registro adicional
+            while (rs.next()) { 
+                Object[] filaAdicional = {
+                    rs.getInt("idcaballo"),
+                    rs.getInt("edad"),
+                    rs.getString("nombre"),
+                    rs.getString("raza"),
+                    rs.getString("sexo"),
+                    rs.getString("descripcion"),
+                    rs.getString("estadoSalud"),
+                    rs.getString("estadoEntrenamiento"),
+                    rs.getDouble("peso"),
+                    rs.getDouble("valorComercial"),
+                    rs.getString("campo"),
+                    rs.getDouble("alimentacion")
+                };
+                modeloEncontrado.addRow(filaAdicional); 
+                System.out.println(rs.getString("nombre"));
             }
-            
-        } catch (SQLException e) {
-            System.out.println("No se encontró ningun caballo con tal id");
+        }else{
+            JOptionPane.showMessageDialog(null, "No se encontró ningún caballo con tal id");
+            buscarCaballo();
         }
-        return modeloEncontrado;
-    }*/
+        
+    } catch (SQLException e) {
+        System.out.println("No se encontró ningún caballo con tal id");
+    }
+    return modeloEncontrado;
+}
+
 
     //metodo para imprimir la lista de caballos en el criadero
     public void impresionCaballos(){
@@ -235,4 +255,5 @@ public class Caballo {
         System.out.println("Abriendo registro. Corrobore los cambios...");
         tabla.setVisible(true);
     }
+
 }

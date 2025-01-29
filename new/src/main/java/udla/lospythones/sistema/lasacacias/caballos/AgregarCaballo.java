@@ -60,7 +60,6 @@ public class AgregarCaballo extends javax.swing.JFrame {
         estadoSalud = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         descripcion1 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Datos");
@@ -159,9 +158,6 @@ public class AgregarCaballo extends javax.swing.JFrame {
 
         descripcion1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPanel1.add(descripcion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 220, -1));
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoacacias_S.jpg"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 580));
 
@@ -279,7 +275,6 @@ public class AgregarCaballo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

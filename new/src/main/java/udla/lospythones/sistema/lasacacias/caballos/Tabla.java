@@ -69,6 +69,11 @@ public class Tabla extends javax.swing.JFrame {
         }
         return model;
     }
+    
+    public void resultadoBusqueda() throws IOException{
+        ListadoCaballos.setModel(callabo.buscarCaballo());
+        setVisible(true);
+    }
 
 
     /**
