@@ -48,7 +48,6 @@ public class Inicio {
         }
         int ans1=0;
         while (ans1==0){
-        login.dispose();
         ans1 = usuario.opcionesUsuario();//Anteriormente se instanció de acuerdo a la clase escogida, se llama al metodo que hereda de la clase abstracta Usuario
             if (ans1==1){
                 break;

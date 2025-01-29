@@ -45,7 +45,7 @@ public class Login1 extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Login");
         setResizable(false);
 
@@ -134,6 +134,7 @@ public class Login1 extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Login1.class.getName()).log(Level.SEVERE, null, ex);
         }
+        setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

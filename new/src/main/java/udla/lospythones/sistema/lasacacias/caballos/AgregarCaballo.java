@@ -4,11 +4,14 @@
  */
 package udla.lospythones.sistema.lasacacias.caballos;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import udla.lospythones.sistema.lasacacias.BaseDeDatos;
 
 /**
@@ -24,6 +27,7 @@ public class AgregarCaballo extends javax.swing.JFrame {
      */
     public AgregarCaballo() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -212,12 +216,12 @@ public class AgregarCaballo extends javax.swing.JFrame {
             }catch (SQLException e){
                 throw new RuntimeException(e);
             }catch (UniqueValueException un){
-                System.out.println(un.getMessage());
+                JOptionPane.showMessageDialog(null, un.getMessage());
             }
         } catch (NumberFormatException e) {
-            System.out.println("Ingrese un valor valido!");
+            JOptionPane.showMessageDialog(null,"Ingrese un valor valido!");
         }catch (SxException | CamposDisponiblesException sx){
-            System.out.println(sx.getMessage());
+            JOptionPane.showMessageDialog(null,sx.getMessage());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

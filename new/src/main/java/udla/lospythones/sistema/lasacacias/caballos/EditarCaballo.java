@@ -26,6 +26,7 @@ public class EditarCaballo extends javax.swing.JFrame {
      */
     public EditarCaballo() {
         initComponents();
+        this.setLocationRelativeTo(null);
         id = Integer.parseInt(JOptionPane.showInputDialog(null, "ID del caballo:"));
         
     }
