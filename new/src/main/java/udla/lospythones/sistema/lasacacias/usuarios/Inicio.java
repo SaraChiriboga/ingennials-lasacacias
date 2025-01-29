@@ -13,6 +13,8 @@ import java.sql.SQLException;
 
 public class Inicio {
     Login1 login = new Login1();
+    BaseDeDatos db = new BaseDeDatos(); // se inicia una conexión con la base de datos
+    Connection acacias = db.connectToDataBase();
     public Inicio() throws SQLException {
     }
 
@@ -46,7 +48,7 @@ public class Inicio {
         }
         int ans1=0;
         while (ans1==0){
-        login.setVisible(false);
+        login.dispose();
         ans1 = usuario.opcionesUsuario();//Anteriormente se instanció de acuerdo a la clase escogida, se llama al metodo que hereda de la clase abstracta Usuario
             if (ans1==1){
                 break;
@@ -57,22 +59,33 @@ public class Inicio {
         JOptionPane.showMessageDialog(null, "Gracias por usar nuestro sistema!", "", JOptionPane.INFORMATION_MESSAGE, logoAcacias);
     }
 
-    private void inicioDeSesion(String tipoUser, String user, String cont){
-        BaseDeDatos db = new BaseDeDatos(); //se inicia una conexión con la base de datos
-        Connection acacias = db.connectToDataBase();
-        boolean ingreso=true;
-        while (ingreso) {//Se permanecerá en el bucle hasta que se ingrese datos que se encuentren en la base de datos
-            String nombreUSer = verificacionUser(acacias, user, cont, tipoUser);
-            if (nombreUSer != null) {
-                JOptionPane.showMessageDialog(null, "Bienvenid@ " + nombreUSer);
-                ingreso=false;
-            } else{
-                login.avisoError("Datos incorrecto!");
+    private void inicioDeSesion(String tipoUser, String user, String cont) {
+    BaseDeDatos db = new BaseDeDatos(); // se inicia una conexión con la base de datos
+    Connection acacias = db.connectToDataBase();
+    boolean ingreso = false;
+
+    while (!ingreso) { // Reitera hasta que `ingreso` sea true
+        String nombreUSer = verificacionUser(acacias, user, cont, tipoUser);
+        if (nombreUSer != null) {
+            JOptionPane.showMessageDialog(null, "Bienvenid@ " + nombreUSer);
+            // se cierra el JFrame de login si la autenticación es exitosa
+            login.setVisible(false);
+            ingreso = true; // Detiene la reiteración
+        } else {
+            // Muestra un mensaje de error en un JOptionPane
+            JOptionPane.showMessageDialog(null, "¡Datos incorrectos!", "Error", JOptionPane.ERROR_MESSAGE);
+
+            // Permite que el usuario vuelva a intentar ingresando datos
+            login.setVisible(true); // Reabre el JFrame para permitir reingresar datos
+            String[] options = {"Reintentar", "Salir"};
+            int response = JOptionPane.showOptionDialog(null, "¿Desea intentar de nuevo?", "Error de Ingreso",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            if (response == 1) { // Si el usuario elige salir
+                System.exit(0); // Finaliza el programa
             }
         }
     }
-
-
+}
 
 
     private String verificacionUser(Connection acacias, String us, String ps, String tipoUSer){

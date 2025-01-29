@@ -107,14 +107,14 @@ public class Administrador extends Usuario {
             case "Editar información caballo":
                 try{
                     caballito.editarCaballo();
-                }catch (NumberFormatException e){System.out.println("Es necesario que coloque el id del caballo...");}
+                }catch (NumberFormatException e){JOptionPane.showMessageDialog(null, "Es necesario que coloque el id del caballo...");}
                 break;
             case "Eliminar Caballo":
                 try {
                     int id = Integer.parseInt(JOptionPane.showInputDialog(null, "ID del caballo:"));
                     caballito.eliminarCaballo(id);
                 }catch (NumberFormatException e){
-                    System.out.println("Es necesario que coloque el id del caballo...");
+                    JOptionPane.showMessageDialog(null,"Es necesario que coloque el id del caballo...");
                 }
                 break;
             case "Buscar Caballo":
@@ -132,7 +132,7 @@ public class Administrador extends Usuario {
                     int deletehist = Integer.parseInt(JOptionPane.showInputDialog(null, "ID del caballo:"));
                     historiales.eliminarHistorial(deletehist);
                 }catch (NumberFormatException e){
-                    System.out.println("Es necesario que coloque el id del caballo...");}
+                    JOptionPane.showMessageDialog(null,"Es necesario que coloque el id del caballo...");}
                 break;
             case "Buscar historial":
                 histmed.mostrarHistorialEncontrado();

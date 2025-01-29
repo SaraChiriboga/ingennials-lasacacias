@@ -83,7 +83,6 @@ public class HistorialMed {
     //metodo para mostrar los historiales medicos
     public void mostrarHistoriales(){
         TablaMed historiales = new TablaMed();
-        System.out.println("Abriendo registro. Corrobore los cambios...");
 
         historiales.setVisible(true);
     }
@@ -105,7 +104,7 @@ public class HistorialMed {
                 throw new RuntimeException(e);
             }
         }else{
-            System.out.println("No se encontraron historiales con tal id...");
+            JOptionPane.showMessageDialog(null,"No se encontraron historiales con tal id...");
         }
     }
 
@@ -137,7 +136,7 @@ public class HistorialMed {
             }
 
         } catch (NumberFormatException e) {
-            System.out.println("Ingrese un valor válido!");
+            JOptionPane.showMessageDialog(null,"Ingrese un valor válido!");
         }
         return m;
     }

@@ -166,14 +166,11 @@ public class Caballo {
             int filasAfectadas = borrar.executeUpdate();
             if (filasAfectadas > 0) {
                 JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente!");
-                System.out.println("Registro eliminado exitosamente!");
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró ningún caballo con tal id");
-                System.out.println("No se encontró ningún caballo con tal id");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente!");
-            System.out.println("Error al intentar eliminar el registro: " + e.getMessage());
         }
     }
 
@@ -216,7 +213,6 @@ public class Caballo {
                 rs.getDouble("alimentacion")
             };
             modeloEncontrado.addRow(fila); 
-            System.out.println(rs.getString("nombre"));
         
             // Y ahora procesamos cualquier registro adicional
             while (rs.next()) { 
@@ -235,7 +231,6 @@ public class Caballo {
                     rs.getDouble("alimentacion")
                 };
                 modeloEncontrado.addRow(filaAdicional); 
-                System.out.println(rs.getString("nombre"));
             }
         }else{
             JOptionPane.showMessageDialog(null, "No se encontró ningún caballo con tal id");
@@ -243,7 +238,7 @@ public class Caballo {
         }
         
     } catch (SQLException e) {
-        System.out.println("No se encontró ningún caballo con tal id");
+        JOptionPane.showMessageDialog(null,"No se encontró ningún caballo con tal id");
     }
     return modeloEncontrado;
 }
@@ -252,7 +247,6 @@ public class Caballo {
     //metodo para imprimir la lista de caballos en el criadero
     public void impresionCaballos(){
         Tabla tabla = new Tabla();
-        System.out.println("Abriendo registro. Corrobore los cambios...");
         tabla.setVisible(true);
     }
 

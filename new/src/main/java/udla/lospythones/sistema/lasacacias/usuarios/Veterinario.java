@@ -88,7 +88,7 @@ public class Veterinario extends Usuario {
                     int deletehist = Integer.parseInt(JOptionPane.showInputDialog(null, "ID del caballo:"));
                     historiales.eliminarHistorial(deletehist);
                 }catch (NumberFormatException e){
-                    System.out.println("Es necesario que coloque el id del caballo...");}
+                    JOptionPane.showMessageDialog(null,"Es necesario que coloque el id del caballo...");}
                 break;
             case "Buscar historial":
                 TablaMed histmed = new TablaMed();

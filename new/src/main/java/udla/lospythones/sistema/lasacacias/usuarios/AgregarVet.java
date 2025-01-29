@@ -21,6 +21,7 @@ public class AgregarVet extends javax.swing.JFrame {
      */
     public AgregarVet() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

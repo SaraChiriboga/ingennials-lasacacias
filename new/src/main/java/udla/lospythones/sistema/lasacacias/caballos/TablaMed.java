@@ -18,6 +18,7 @@ public class TablaMed extends javax.swing.JFrame {
      */
     public TablaMed() {
         initComponents();
+        this.setLocationRelativeTo(null);
         HistorialesMed.setModel(hist.transferHistoriales());
     }
 

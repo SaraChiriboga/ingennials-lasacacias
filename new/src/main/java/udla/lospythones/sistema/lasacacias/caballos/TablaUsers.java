@@ -20,6 +20,7 @@ public class TablaUsers extends javax.swing.JFrame {
      */
     public TablaUsers() throws SQLException {
         initComponents(); //las 3 tablas se llenan con el modelo diseñado
+        this.setLocationRelativeTo(null);
         admins.setModel(admin.admins());
         trabajadores.setModel(admin.trabajadores());
         vets.setModel(admin.vets());
@@ -115,7 +116,7 @@ public class TablaUsers extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoacacias_S.jpg"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 10, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 730));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

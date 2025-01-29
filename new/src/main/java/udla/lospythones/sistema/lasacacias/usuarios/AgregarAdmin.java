@@ -24,6 +24,7 @@ public class AgregarAdmin extends javax.swing.JFrame{
      */
     public AgregarAdmin() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
    
 

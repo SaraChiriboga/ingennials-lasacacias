@@ -87,10 +87,6 @@ public class Trabajador extends Usuario {
 
         BufferedReader sc = new BufferedReader(new java.io.InputStreamReader(System.in));
 
-        System.out.println("======================================");
-        System.out.println("Ingrese los datos del nuevo usuario...");
-        System.out.println("======================================");
-
         try {
             // Captura del ID del usuario.
             System.out.print("ID: ");

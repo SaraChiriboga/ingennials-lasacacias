@@ -23,6 +23,7 @@ public class AgregarTrabajador extends javax.swing.JFrame {
      */
     public AgregarTrabajador() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

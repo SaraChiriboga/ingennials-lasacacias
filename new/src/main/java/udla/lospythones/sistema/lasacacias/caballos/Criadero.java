@@ -79,7 +79,6 @@ public class Criadero {
     //metodo para mostrar la tabla en una ventada
     public void mostrarCampos(){
         TablaCriadero tabla = new TablaCriadero();
-        System.out.println("Abriendo registro. Corrobore los cambios...");
 
         tabla.setVisible(true);
      }
